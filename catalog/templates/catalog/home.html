@@ -1,5 +1,5 @@
 {% extends 'catalog/base.html' %}
-{% load static %}
+{% load my_tags %}
 {% block container %}
 <div class="container">
     <header>
@@ -18,9 +18,9 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ object|title }}</h5>
                         <p class="card-text">{{ object.description|slice:":100" }}</p>
-                        <img src="{% static object.img_path %}" class="img-fluid"/>
+                        <img src="{{ object.preview_img|mediapath }}" class="img-fluid"/>
                         <p class="fs-3 text mt-3">{{ object.price }} р.</p>
-                        <a href="#" class="btn btn-primary">Подробнее</a>
+                        <a href="{% url 'catalog:view_product' object.pk %}" class="btn btn-primary">Подробнее</a>
                     </div>
                 </div>
             </div>

@@ -13,10 +13,6 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='дата последнего изменения')
 
-    @property
-    def img_path(self):
-        return f"images/{self.name}.jpg"
-
     def __str__(self):
         return f'{self.name}'
 

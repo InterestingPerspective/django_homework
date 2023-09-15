@@ -1,15 +1,16 @@
 {% extends 'catalog/base.html' %}
+{% load my_tags %}
 {% block container %}
 <section>
     <div class="container">
-        <h1 class="mt-5 mb-5">Название товара</h1>
+        <h1 class="mt-5 mb-5">{{ object.name }}</h1>
             <div class="row">
                 <div class="col-6">
-                    <img class="img-fluid" src="http://placehold.it/1000x1000">
+                    <img class="img-fluid" src="{{ object.preview_img|mediapath }}">
                 </div>
                 <div class="col-6">
-                    <p>Описание пропекта</p>
-                    <p class="fs-3">Цена товара</p>
+                    <p>{{ object.description }}</p>
+                    <p class="fs-3">{{ object.price }} р.</p>
                 </div>
             </div>
     </div>
