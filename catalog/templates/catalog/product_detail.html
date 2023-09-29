@@ -4,15 +4,15 @@
 <section>
     <div class="container">
         <h1 class="mt-5 mb-5">{{ object.name }}</h1>
-            <div class="row">
-                <div class="col-6">
-                    <img class="img-fluid" src="{{ object.preview_img|mediapath }}">
-                </div>
-                <div class="col-6">
-                    <p>{{ object.description }}</p>
-                    <p class="fs-3">{{ object.price }} р.</p>
-                </div>
+        <div class="row">
+            <div class="col-6">
+                <img class="img-fluid" src="{{ object.preview_img|mediapath }}">
             </div>
+            <div class="col-6">
+                <p>{{ object.description }}</p>
+                <p class="fs-3">{{ object.price }} р.</p>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}
