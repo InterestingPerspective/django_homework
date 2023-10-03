@@ -11,12 +11,33 @@
                         {{ form.as_p }}
                         <button type="submit" class="btn btn-success">
                             {% if object %}
-                                Сохранить
+                            Сохранить
                             {% else %}
-                                Создать
+                            Создать
                             {% endif %}
                         </button>
+                        <hr>
                     </form>
+                    {% if object %}
+                    <div class="row">
+                        <h4>Версии</h4>
+                        <div class="col-12">
+                            {% for version_item in object.version_set.all %}
+                            {% if version_item.is_active %}
+                            <p style="color: green">Текущая: {{ version_item }}</p>
+                            <a href="{% url 'catalog:update_version' version_item.pk %}" class="btn btn-primary">Изменить</a>
+                            <hr>
+                            {% else %}
+                            <p style="color: red">{{ version_item }}</p>
+                            <a href="{% url 'catalog:update_version' version_item.pk %}" class="btn btn-primary">Изменить</a>
+                            <hr>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <h4>Новая версия</h4>
+                        <a class="btn btn-primary" href="{% url 'catalog:create_version' %}">Добавить</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

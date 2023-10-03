@@ -16,7 +16,6 @@
                 <a class="btn btn-outline-primary" href="{% url 'catalog:create_product' %}">Добавить товар</a>
             </div>
             {% for object in object_list %}
-            {% if object.is_active %}
             <div class="col-sm-4">
                 <div class="card">
                     <div class="card-body">
@@ -24,15 +23,14 @@
                         <p class="card-text">{{ object.product.description|slice:100 }}</p>
                         <img src="{{ object.product.preview_img|mediapath }}" class="img-fluid"/>
                         <p class="fs-3 text mt-3">{{ object.product.price }} р.</p>
-                        <a href="{% url 'catalog:view_product' object.pk %}" class="btn btn-primary">Подробнее</a>
-                        <a href="{% url 'catalog:edit_version' object.pk %}" class="btn btn-primary">Изменить версию</a>
+                        <a href="{% url 'catalog:view_product' object.product.pk %}" class="btn btn-primary">Подробнее</a>
+                        <a href="{% url 'catalog:update_product' object.product.pk %}" class="btn btn-primary">Изменить</a>
                     </div>
                     <div class="card-footer">
-                        <p class="card-text">Версия: {{ object.number }} / {{ object.name }}</p>
+                        <p>Версия: {{ object }}</p>
                     </div>
                 </div>
             </div>
-            {% endif %}
             {% endfor %}
         </div>
     </div>
