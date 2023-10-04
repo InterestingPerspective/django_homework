@@ -35,8 +35,14 @@
                             {% endfor %}
                         </div>
                         <h4>Новая версия</h4>
-                        <a class="btn btn-primary" href="{% url 'catalog:create_version' %}">Добавить</a>
+                        <form method="post" action="{% url 'catalog:create_version' %}">
+                            {% csrf_token %}
+                            {{ version_form.as_p }}
+                            <button type="submit" class="btn btn-success">Создать</button>
+                        </form>
                     </div>
+                    {% else %}
+                    <a class="btn btn-success" href="{% url 'catalog:create_version' %}">Создать версию</a>
                     {% endif %}
                 </div>
             </div>

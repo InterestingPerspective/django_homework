@@ -16,21 +16,25 @@
                 <a class="btn btn-outline-primary" href="{% url 'catalog:create_product' %}">Добавить товар</a>
             </div>
             {% for object in object_list %}
+            {% for version in object.version_set.all %}
+            {% if version.is_active %}
             <div class="col-sm-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{ object.product|title }}</h5>
-                        <p class="card-text">{{ object.product.description|slice:100 }}</p>
-                        <img src="{{ object.product.preview_img|mediapath }}" class="img-fluid"/>
-                        <p class="fs-3 text mt-3">{{ object.product.price }} р.</p>
-                        <a href="{% url 'catalog:view_product' object.product.pk %}" class="btn btn-primary">Подробнее</a>
-                        <a href="{% url 'catalog:update_product' object.product.pk %}" class="btn btn-primary">Изменить</a>
+                        <h5 class="card-title">{{ version.product|title }}</h5>
+                        <p class="card-text">{{ version.product.description|slice:100 }}</p>
+                        <img src="{{ version.product.preview_img|mediapath }}" class="img-fluid"/>
+                        <p class="fs-3 text mt-3">{{ version.product.price }} р.</p>
+                        <a href="{% url 'catalog:view_product' version.product.pk %}" class="btn btn-primary">Подробнее</a>
+                        <a href="{% url 'catalog:update_product' version.product.pk %}" class="btn btn-primary">Изменить</a>
                     </div>
                     <div class="card-footer">
-                        <p>Версия: {{ object }}</p>
+                        <p>Версия: {{ version }}</p>
                     </div>
                 </div>
             </div>
+            {% endif %}
+            {% endfor %}
             {% endfor %}
         </div>
     </div>

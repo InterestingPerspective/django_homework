@@ -9,16 +9,6 @@ from catalog.models import Product, Version
 class ProductListView(ListView):
     model = Product
 
-    def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        product_list = []
-        for obj in context_data['object_list']:
-            version = Version.objects.filter(product=obj.pk, is_active=True)
-            if obj.version_set.all():
-                product_list.append(version[0])
-        context_data['object_list'] = product_list
-        return context_data
-
 
 def contacts(request):
     if request.method == 'POST':
@@ -53,11 +43,19 @@ class ProductUpdateView(UpdateView):
     success_url = reverse_lazy('catalog:home')
     form_class = ProductForm
 
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['version_form'] = VersionForm(initial={'product': self.kwargs.get('pk')})
+        return context_data
+
 
 class VersionCreateView(CreateView):
     model = Version
     success_url = reverse_lazy('catalog:home')
     form_class = VersionForm
+
+    def get_object(self, queryset=None):
+        return self.request.version
 
 
 class VersionUpdateView(UpdateView):
