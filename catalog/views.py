@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
@@ -6,7 +7,7 @@ from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Version
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
 
 
@@ -23,7 +24,7 @@ def contacts(request):
     return render(request, 'catalog/contacts.html', context)
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
 
     def get_context_data(self, **kwargs):
@@ -32,13 +33,13 @@ class ProductDetailView(DetailView):
         return context_data
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     success_url = reverse_lazy('catalog:create_version')
     form_class = ProductForm
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     success_url = reverse_lazy('catalog:home')
     form_class = ProductForm
@@ -49,7 +50,7 @@ class ProductUpdateView(UpdateView):
         return context_data
 
 
-class VersionCreateView(CreateView):
+class VersionCreateView(LoginRequiredMixin, CreateView):
     model = Version
     success_url = reverse_lazy('catalog:home')
     form_class = VersionForm
@@ -58,7 +59,7 @@ class VersionCreateView(CreateView):
         return self.request.version
 
 
-class VersionUpdateView(UpdateView):
+class VersionUpdateView(LoginRequiredMixin, UpdateView):
     model = Version
     success_url = reverse_lazy('catalog:home')
     form_class = VersionForm
