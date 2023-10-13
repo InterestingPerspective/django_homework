@@ -5,7 +5,8 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from catalog.forms import ProductForm, VersionForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
+from catalog.services import get_cached_versions_for_product, get_category_list
 
 
 class ProductListView(LoginRequiredMixin, ListView):
@@ -30,6 +31,7 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
+        context_data['versions'] = get_cached_versions_for_product(self.object.pk)
         context_data['form'] = VersionForm(initial={'product': self.kwargs.get('pk')})
         return context_data
 
@@ -77,3 +79,12 @@ class VersionUpdateView(LoginRequiredMixin, UpdateView):
     model = Version
     success_url = reverse_lazy('catalog:home')
     form_class = VersionForm
+
+
+class CategoryListView(LoginRequiredMixin, ListView):
+    model = Category
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['object_list'] = get_category_list()
+        return context_data

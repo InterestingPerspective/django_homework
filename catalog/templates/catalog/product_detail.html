@@ -11,12 +11,12 @@
             <div class="col-6">
                 <p>{{ object.description }}</p>
                 <p class="fs-3">{{ object.price }} р.</p>
-                {% for version_item in object.version_set.all %}
-                {% if version_item.is_active %}
-                    <p style="color: green">Текущая версия: {{ version_item }}</p>
+                {% for version in versions %}
+                {% if version.is_active %}
+                    <p style="color: green">Текущая версия: {{ version }}</p>
                     <hr>
                 {% else %}
-                    <p style="color: red">Версия: {{ version_item }}</p>
+                    <p style="color: red">Версия: {{ version }}</p>
                     <hr>
                 {% endif %}
                 {% endfor %}

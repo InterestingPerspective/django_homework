@@ -36,6 +36,7 @@
                         <a class="nav-link" href="{% url 'blog:list' %}">Блог</a>
                     </li>
                     {% if user.is_authenticated %}
+                    <li><a href="{% url 'catalog:categories' %}" class="nav-link">Категории</a></li>
                     <li><a href="{% url 'users:profile' %}" class="nav-link">Профиль</a></li>
                     <li><a href="{% url 'users:logout' %}" class="nav-link">Выйти</a></li>
                     {% else %}
