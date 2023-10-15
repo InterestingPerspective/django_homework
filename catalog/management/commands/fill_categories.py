@@ -9,7 +9,7 @@ from config.settings import BASE_DIR
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        with open(BASE_DIR / 'data2.json') as file:
+        with open(BASE_DIR / 'data.json') as file:
             category_list = json.load(file)
 
         categories_for_create = []
