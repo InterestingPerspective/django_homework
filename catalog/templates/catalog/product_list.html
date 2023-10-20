@@ -13,7 +13,9 @@
     <div class="container">
         <div class="row">
             <div class="col-12 mb-5">
+                {% if perms.catalog.add_product %}
                 <a class="btn btn-outline-primary" href="{% url 'catalog:create_product' %}">Добавить товар</a>
+                {% endif %}
             </div>
             {% for object in object_list %}
             {% for version in object.version_set.all %}
@@ -26,7 +28,9 @@
                         <img src="{{ version.product.preview_img|mediapath }}" class="img-fluid"/>
                         <p class="fs-3 text mt-3">{{ version.product.price }} р.</p>
                         <a href="{% url 'catalog:view_product' version.product.pk %}" class="btn btn-primary">Подробнее</a>
+                        {% if perms.catalog.change_product %}
                         <a href="{% url 'catalog:update_product' version.product.pk %}" class="btn btn-primary">Изменить</a>
+                        {% endif %}
                     </div>
                     <div class="card-footer">
                         <p>Версия: {{ version }}</p>
