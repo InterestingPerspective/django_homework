@@ -36,9 +36,8 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
         return context_data
 
 
-class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
-    permission_required = 'catalog.add_product'
     success_url = reverse_lazy('catalog:create_version')
     form_class = ProductForm
 
